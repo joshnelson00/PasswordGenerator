@@ -1,7 +1,7 @@
 import random
 import string
 
-def generate_password(min_length, max_length = 16, numbers = True, special_characters = True):
+def generate_password(min_length = 7, max_length = 16, numbers = True, special_characters = True):
     # populate variables with associated ASCII characters
     letters = string.ascii_letters
     digits = string.digits
@@ -19,4 +19,20 @@ def generate_password(min_length, max_length = 16, numbers = True, special_chara
     meets_requirements = False
     has_number = False
     has_special = False
+
+    while not meets_requirements or len(password) < min_length:
+        new_char = random.choice(characters)
+        if new_char in digits:
+            has_number = True
+        elif new_char in specials:
+            has_special = True
+        meets_requirements = True
+
+        if numbers:
+            meets_requirements = has_number
+        if special_characters:
+            meets_requirements = meets_requirements and has_special
+
+
+
 
