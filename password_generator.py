@@ -32,6 +32,7 @@ def generate_password(min_length = 7, max_length = 16, numbers = True, special_c
             meets_requirements = has_number
         if special_characters:
             meets_requirements = meets_requirements and has_special
+# min_length, max_length, numbers, specials
 
 
 
