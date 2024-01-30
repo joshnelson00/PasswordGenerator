@@ -1,7 +1,6 @@
 import random
 import string
 from random import seed
-from random import randint
 
 #generate password
 def generate_password(reqs):
