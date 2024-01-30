@@ -31,29 +31,28 @@ def generate_password(reqs):
         for i in range(num):
             new_char = random.choice(characters)
             password += new_char
-        print("pass in func: " + str(password))
         if numbers and special_characters:
             for i in range(num):
                 if password[i] in digits:
                     has_number = True
                 if password[i] in specials:
                     has_special = True
-                if has_number and has_special:
-                    meets_requirements = True
+            if has_number and has_special:
+                meets_requirements = True
         elif numbers:
             for i in range(num):
                 if password[i] in digits:
                     has_number = True
                     meets_requirements = True
-        elif specials:
+        elif special_characters:
             for i in range(num):
                 if password[i] in specials:
                     has_special = True
                     meets_requirements = True
+        else:
+            meets_requirements = True
         if meets_requirements:
             break
-        else:
-            continue
     return password
 
 
@@ -72,6 +71,7 @@ def get_pwd_requirements():
             break
         except ValueError:
             print("Invalid Character Type. Please Try Again")
+
     while True:
         nums_in_pwd = input("Would you like to have numbers in the password (y/n): ")
         if (nums_in_pwd == 'y'):
@@ -93,12 +93,12 @@ def get_pwd_requirements():
         else:
             print("Type 'y' or 'n'. Please Try Again")
     return [min, max, nums, specials]
+
 seed(1)
 
 reqs = get_pwd_requirements()
 
-for it in reqs:
-    print(it)
 password = generate_password(reqs)
-print("password: " + str(password))
+print()
+print("Password: " + str(password))
 
