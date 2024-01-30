@@ -13,7 +13,7 @@ def generate_password(reqs):
     digits = string.digits
     specials = string.punctuation
 
-    characters = letters + digits + specials
+    characters = letters
     #conditionals to decide what characters are required/allowed for the password
     if numbers:
         characters += digits
@@ -32,7 +32,7 @@ def generate_password(reqs):
             new_char = random.choice(characters)
             password += new_char
         print("pass in func: " + str(password))
-        if numbers and specials:
+        if numbers and special_characters:
             for i in range(num):
                 if password[i] in digits:
                     has_number = True
