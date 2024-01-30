@@ -1,19 +1,19 @@
 import random
 import string
-
+from random import seed
+from random import randint
 def generate_password(reqs):
     min_length = reqs[0]
     max_length = reqs[1]
     numbers = reqs[2]
     special_characters = reqs[3]
     length = random.randint(min_length, max_length)
-
     # populate variables with associated ASCII characters
     letters = string.ascii_letters
     digits = string.digits
     specials = string.punctuation
 
-    characters = letters
+    characters = letters + digits + specials
     #conditionals to decide what characters are required/allowed for the password
     if numbers:
         characters += digits
@@ -21,27 +21,42 @@ def generate_password(reqs):
         characters += specials
 
     #initalizing variables to create password string render the checks on the criteria given
-    password = ""
     meets_requirements = False
     has_number = False
     has_special = False
-
-    while not meets_requirements or len(password) != length:
-        new_char = random.choice(characters)
-        password += new_char
-        if new_char in digits:
-            has_number = True
-        elif new_char in specials:
-            has_special = True
-        meets_requirements = True
-
-        if numbers:
-            meets_requirements = has_number
-        if special_characters:
-            meets_requirements = meets_requirements and has_special
-
+    num = randint(min_length, max_length)
+    counter = 0
+    while True:
+        password = ""
+        for i in range(num):
+            new_char = random.choice(characters)
+            password += new_char
+        print("pass in func: " + str(password))
+        if numbers and specials:
+            for i in range(num):
+                if password[i] in digits:
+                    has_number = True
+                if password[i] in specials:
+                    has_special = True
+                if has_number and has_special:
+                    meets_requirements = True
+        elif numbers:
+            for i in range(num):
+                if password[i] in digits:
+                    has_number = True
+                    meets_requirements = True
+        elif specials:
+            for i in range(num):
+                if password[i] in specials:
+                    has_special = True
+                    meets_requirements = True
         if meets_requirements:
-            return password
+            break
+        else:
+            continue
+    return password
+
+
 
 # min_length, max_length, numbers, specials
 def get_pwd_requirements():
@@ -78,11 +93,12 @@ def get_pwd_requirements():
         else:
             print("Type 'y' or 'n'. Please Try Again")
     return [min, max, nums, specials]
-
+seed(1)
 
 reqs = get_pwd_requirements()
 
-
+for it in reqs:
+    print(it)
 password = generate_password(reqs)
-print(password)
+print("password: " + str(password))
 
