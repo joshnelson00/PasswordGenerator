@@ -103,7 +103,7 @@ def get_pwd_reqs():
             print("Type 'y' or 'n'. Please Try Again")
     #return list of reqs
     return [min, max, nums, specials]
-
+#random seed
 seed(1)
 
 #get reqs for password
