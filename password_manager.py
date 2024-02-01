@@ -1,4 +1,5 @@
-import password_generator
+from password_generator import get_pwd_reqs
+from password_generator import generate_password
 from cryptography.fernet import Fernet
 
 '''
@@ -23,13 +24,22 @@ def view():
 def add():
     company = input("Name of Company: ")
     username = input("Username: ")
-    pwd = input("Password: ")
+    while True:
+        user_choice = input("Would you like to generate or input an entry (generate/input)?: ")
+        if user_choice == "generate":
+            pwd = generate_password(get_pwd_reqs())
+            break
+        elif user_choice == "input":
+            pwd = input("Password: ")
+            break
+        else:
+            print("Invalid option. Please try again.")
+            continue
     with open("passwords.txt", "a") as file:
         file.write(company + "|" + username + "|" + str(fer.encrypt(pwd.encode()).decode()) + "\n")
 
 #set password here
 m_password = "password"
-
 while True:
     m_check = input("Master Password: ")
     if m_password == m_check:
@@ -37,7 +47,6 @@ while True:
         break
     else:
         print("Wrong Password. Please Try Again")
-
 
 key = load_key() + m_password.encode()
 fer = Fernet(key)
