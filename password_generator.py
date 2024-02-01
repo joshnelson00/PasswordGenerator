@@ -106,12 +106,4 @@ def get_pwd_reqs():
 #random seed
 seed(1)
 
-#get reqs for password
-reqs = get_pwd_reqs()
-
-#generate password
-password = generate_password(reqs)
-
-#display password
-print("Password: " + str(password))
 
