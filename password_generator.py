@@ -58,7 +58,6 @@ def generate_password(reqs):
         #end while loop if the password meets the criteria given by use
         if meets_requirements:
             break
-    #return password
     return password
 
 

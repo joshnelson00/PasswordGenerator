@@ -1,18 +1,21 @@
+#import packages/files
 from password_generator import get_pwd_reqs
 from password_generator import generate_password
 from cryptography.fernet import Fernet
-
+#key write function from Fernet for encryption
 '''
 def write_key():
     key = Fernet.generate_key()
     with open("key.key", "wb") as key_file:
         key_file.write(key)
 '''
+#load_key functioned to get key from file
 def load_key():
     file = open("key.key", "rb")
     key = file.read()
     file.close()
     return key
+#view function to display passwords
 def view():
     with open("passwords.txt", "r") as file:
         counter = 1
@@ -21,6 +24,7 @@ def view():
             company, username, password = data.split("|")
             print(str(counter) + ". " + company + "\n" + "Username:" + username + "\n" + "Password: " + str(fer.decrypt(password.encode()).decode()))
             counter += 1
+#add function to add random or user-inputted password
 def add():
     company = input("Name of Company: ")
     username = input("Username: ")
@@ -38,8 +42,9 @@ def add():
     with open("passwords.txt", "a") as file:
         file.write(company + "|" + username + "|" + str(fer.encrypt(pwd.encode()).decode()) + "\n")
 
-#set password here
+#set password here (what the master is)
 m_password = "password"
+
 while True:
     m_check = input("Master Password: ")
     if m_password == m_check:
@@ -48,9 +53,11 @@ while True:
     else:
         print("Wrong Password. Please Try Again")
 
+#use key to prepare for encryption/decryption
 key = load_key() + m_password.encode()
 fer = Fernet(key)
 
+#menu selection
 while True:
     mode = input("Do you want to add a password, view existing ones, or delete a password (view/add/delete)? [Press q to quit]: ").lower()
     if mode == "q":
